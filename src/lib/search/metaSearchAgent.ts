@@ -31,7 +31,7 @@ export interface MetaSearchAgentType {
     history: BaseMessage[],
     llm: BaseChatModel,
     embeddings: Embeddings,
-    optimizationMode: 'speed' | 'balanced' | 'quality',
+    optimizationMode: 'speed' | 'quality',
     fileIds: string[],
     systemInstructions: string,
   ) => Promise<eventEmitter>;
@@ -236,7 +236,7 @@ class MetaSearchAgent implements MetaSearchAgentType {
     llm: BaseChatModel,
     fileIds: string[],
     embeddings: Embeddings,
-    optimizationMode: 'speed' | 'balanced' | 'quality',
+    optimizationMode: 'speed' | 'quality',
     systemInstructions: string,
   ) {
     return RunnableSequence.from([
@@ -298,7 +298,7 @@ class MetaSearchAgent implements MetaSearchAgentType {
     docs: Document[],
     fileIds: string[],
     embeddings: Embeddings,
-    optimizationMode: 'speed' | 'balanced' | 'quality',
+    optimizationMode: 'speed' | 'quality',
   ) {
     if (docs.length === 0 && fileIds.length === 0) {
       return docs;
@@ -379,7 +379,7 @@ class MetaSearchAgent implements MetaSearchAgentType {
       } else {
         return docsWithContent.slice(0, 15);
       }
-    } else if (optimizationMode === 'balanced') {
+    } else if (optimizationMode === 'quality') {
       const [docEmbeddings, queryEmbedding] = await Promise.all([
         embeddings.embedDocuments(
           docsWithContent.map((doc) => doc.pageContent),
@@ -469,7 +469,7 @@ class MetaSearchAgent implements MetaSearchAgentType {
     history: BaseMessage[],
     llm: BaseChatModel,
     embeddings: Embeddings,
-    optimizationMode: 'speed' | 'balanced' | 'quality',
+    optimizationMode: 'speed' | 'quality',
     fileIds: string[],
     systemInstructions: string,
   ) {

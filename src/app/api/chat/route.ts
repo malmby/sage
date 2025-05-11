@@ -43,7 +43,7 @@ type EmbeddingModel = {
 
 type Body = {
   message: Message;
-  optimizationMode: 'speed' | 'balanced' | 'quality';
+  optimizationMode: 'speed' | 'quality';
   focusMode: string;
   history: Array<[string, string]>;
   files: Array<string>;
