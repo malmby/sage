@@ -66,6 +66,10 @@ const EmptyChatMessageInput = ({
       }}
       onKeyDown={(e) => {
         if (e.key === 'Enter' && !e.shiftKey) {
+          if (message.trim().length < 3) {
+            e.preventDefault();
+            return;
+          }
           e.preventDefault();
           sendMessage(message);
           setMessage('');
@@ -85,13 +89,6 @@ const EmptyChatMessageInput = ({
         <div className="flex flex-row items-center justify-between mt-4">
           <div className="flex flex-row items-center space-x-2 lg:space-x-4">
             <Focus focusMode={focusMode} setFocusMode={setFocusMode} />
-            <Attach
-              fileIds={fileIds}
-              setFileIds={setFileIds}
-              files={files}
-              setFiles={setFiles}
-              showText
-            />
           </div>
           <div className="flex flex-row items-center space-x-1 sm:space-x-4">
             <Optimization
@@ -99,8 +96,8 @@ const EmptyChatMessageInput = ({
               setOptimizationMode={setOptimizationMode}
             />
             <button
-              disabled={message.trim().length === 0}
-              className="bg-[#24A0ED] text-white disabled:text-black/50 dark:disabled:text-white/50 disabled:bg-[#e0e0dc] dark:disabled:bg-[#ececec21] hover:bg-opacity-85 transition duration-100 rounded-full p-2"
+              disabled={message.trim().length < 3}
+              className="bg-emerald-500/70 dark:bg-emerald-300/50 text-white disabled:text-black/50 dark:disabled:text-white/50 disabled:bg-[#e0e0dc] dark:disabled:bg-[#ececec21] hover:bg-opacity-85 transition duration-100 rounded-full p-2"
             >
               <ArrowRight className="bg-background" size={17} />
             </button>

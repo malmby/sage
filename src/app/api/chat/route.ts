@@ -204,19 +204,26 @@ export const POST = async (req: Request) => {
       chatModelProviders[
         body.chatModel?.provider || Object.keys(chatModelProviders)[0]
       ];
+	const preferredChatModel = 
+		(body.optimizationMode === 'speed' && 'gemma3:4b-it-qat' in chatModelProvider)
+		? 'gemma3:4b-it-qat'
+		: (body.optimizationMode === 'quality' && 'qwen3:30b-a3b-q8_0' in chatModelProvider)
+		? 'qwen3:30b-a3b-q8_0'
+		: body.chatModel?.name || Object.keys(chatModelProvider)[0];
     const chatModel =
-      chatModelProvider[
-        body.chatModel?.name || Object.keys(chatModelProvider)[0]
-      ];
-
+      chatModelProvider[preferredChatModel];
     const embeddingProvider =
       embeddingModelProviders[
         body.embeddingModel?.provider || Object.keys(embeddingModelProviders)[0]
       ];
+	const preferredEmbeddingModel = 
+		('gemma3:4b-it-qat' in embeddingProvider)
+		? 'gemma3:4b-it-qat'
+		: ('llama3.2:3b' in embeddingProvider)
+		? 'llama3.2:3b'
+		: body.embeddingModel?.name || Object.keys(embeddingProvider)[0];
     const embeddingModel =
-      embeddingProvider[
-        body.embeddingModel?.name || Object.keys(embeddingProvider)[0]
-      ];
+      embeddingProvider[preferredEmbeddingModel];
 
     let llm: BaseChatModel | undefined;
     let embedding = embeddingModel.model;

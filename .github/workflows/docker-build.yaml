@@ -3,7 +3,8 @@ name: Build & Push Docker Images
 on:
   push:
     branches:
-      - master
+      - main
+  workflow_dispatch:
   release:
     types: [published]
 
@@ -31,7 +32,7 @@ jobs:
         run: echo "RELEASE_VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
 
       - name: Build and push AMD64 Docker image
-        if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: |
           DOCKERFILE=app.dockerfile
           IMAGE_NAME=perplexica
@@ -79,7 +80,7 @@ jobs:
         run: echo "RELEASE_VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
 
       - name: Build and push ARM64 Docker image
-        if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: |
           DOCKERFILE=app.dockerfile
           IMAGE_NAME=perplexica
@@ -120,7 +121,7 @@ jobs:
         run: echo "RELEASE_VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
 
       - name: Create and push multi-arch manifest for main
-        if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: |
           IMAGE_NAME=perplexica
           docker manifest create malmby/${IMAGE_NAME}:main \

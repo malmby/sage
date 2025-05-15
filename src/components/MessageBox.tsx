@@ -125,7 +125,7 @@ const MessageBox = ({
             'break-words',
           )}
         >
-          <h2 className="text-black dark:text-white font-medium text-3xl lg:w-9/12">
+          <h2 className="text-black/50 dark:text-white/50 font-medium text-2xl lg:w-9/12">
             {message.content}
           </h2>
         </div>
@@ -140,8 +140,8 @@ const MessageBox = ({
             {message.sources && message.sources.length > 0 && (
               <div className="flex flex-col space-y-2">
                 <div className="flex flex-row items-center space-x-2">
-                  <BookCopy className="text-black dark:text-white" size={20} />
-                  <h3 className="text-black dark:text-white font-medium text-xl">
+                  <BookCopy className="text-emerald-500/70 dark:text-emerald-300/50" size={20} />
+                  <h3 className="text-emerald-500/70 dark:text-emerald-300/50 font-medium text-xl">
                     Sources
                   </h3>
                 </div>
@@ -152,12 +152,12 @@ const MessageBox = ({
               <div className="flex flex-row items-center space-x-2">
                 <Disc3
                   className={cn(
-                    'text-black dark:text-white',
+                    'text-emerald-500/70 dark:text-emerald-300/50',
                     isLast && loading ? 'animate-spin' : 'animate-none',
                   )}
                   size={20}
                 />
-                <h3 className="text-black dark:text-white font-medium text-xl">
+                <h3 className="text-emerald-500/70 dark:text-emerald-300/50 font-medium text-xl">
                   Answer
                 </h3>
               </div>
@@ -209,8 +209,8 @@ const MessageBox = ({
                     <div className="h-px w-full bg-light-secondary dark:bg-dark-secondary" />
                     <div className="flex flex-col space-y-3 text-black dark:text-white">
                       <div className="flex flex-row items-center space-x-2 mt-4">
-                        <Layers3 />
-                        <h3 className="text-xl font-medium">Related</h3>
+                        <Layers3 className="text-emerald-500/70 dark:text-emerald-300/50" />
+                        <h3 className="text-emerald-500/70 dark:text-emerald-300/50 text-xl font-medium">Related</h3>
                       </div>
                       <div className="flex flex-col space-y-3">
                         {message.suggestions.map((suggestion, i) => (
@@ -225,12 +225,12 @@ const MessageBox = ({
                               }}
                               className="cursor-pointer flex flex-row justify-between font-medium space-x-2 items-center"
                             >
-                              <p className="transition duration-200 hover:text-[#24A0ED]">
+                              <p className="transition duration-200 hover:text-emerald-500/70 hover:dark:text-emerald-300/50">
                                 {suggestion}
                               </p>
                               <Plus
                                 size={20}
-                                className="text-[#24A0ED] flex-shrink-0"
+                                className="text-emerald-500/70 dark:text-emerald-300/50 flex-shrink-0"
                               />
                             </div>
                           </div>

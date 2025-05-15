@@ -30,7 +30,7 @@ const EmptyChat = ({
   return (
     <div className="relative">
       <div className="flex flex-col items-center justify-center min-h-screen max-w-screen-sm mx-auto p-2 space-y-8">
-        <h2 className="text-black/70 dark:text-white/70 text-3xl font-medium -mt-8">
+        <h2 className="text-emerald-500/70 dark:text-emerald-300/50 text-4xl font-medium -mt-8">
           sage
         </h2>
         <EmptyChatMessageInput

@@ -453,7 +453,7 @@ const Page = () => {
                     }}
                     className={cn(
                       automaticImageSearch
-                        ? 'bg-[#24A0ED]'
+                        ? 'bg-emerald-500/70 dark:bg-emerald-300/50'
                         : 'bg-light-200 dark:bg-dark-200',
                       'relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none',
                     )}
@@ -495,7 +495,7 @@ const Page = () => {
                     }}
                     className={cn(
                       automaticVideoSearch
-                        ? 'bg-[#24A0ED]'
+                        ? 'bg-emerald-500/70 dark:bg-emerald-300/50'
                         : 'bg-light-200 dark:bg-dark-200',
                       'relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none',
                     )}
