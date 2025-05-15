@@ -336,7 +336,7 @@ class MetaSearchAgent implements MetaSearchAgentType {
       (doc) => doc.pageContent && doc.pageContent.length > 0,
     );
 
-    if (optimizationMode === 'speed' || this.config.rerank === false) {
+    if (optimizationMode === 'speed' || optimizationMode === 'quality' || this.config.rerank === false) {
       if (filesData.length > 0) {
         const [queryEmbedding] = await Promise.all([
           embeddings.embedQuery(query),
@@ -379,7 +379,7 @@ class MetaSearchAgent implements MetaSearchAgentType {
       } else {
         return docsWithContent.slice(0, 15);
       }
-    } else if (optimizationMode === 'quality') {
+    } else if (optimizationMode === 'balanced') {
       const [docEmbeddings, queryEmbedding] = await Promise.all([
         embeddings.embedDocuments(
           docsWithContent.map((doc) => doc.pageContent),

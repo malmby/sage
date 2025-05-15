@@ -69,6 +69,10 @@ const MessageInput = ({
       }}
       onKeyDown={(e) => {
         if (e.key === 'Enter' && !e.shiftKey && !loading) {
+          if (message.trim().length < 3) {
+            e.preventDefault();
+            return;
+          }
           e.preventDefault();
           sendMessage(message);
           setMessage('');
@@ -79,14 +83,6 @@ const MessageInput = ({
         mode === 'multi' ? 'flex-col rounded-lg' : 'flex-row rounded-full',
       )}
     >
-      {mode === 'single' && (
-        <AttachSmall
-          fileIds={fileIds}
-          setFileIds={setFileIds}
-          files={files}
-          setFiles={setFiles}
-        />
-      )}
       <TextareaAutosize
         ref={inputRef}
         value={message}
@@ -104,8 +100,8 @@ const MessageInput = ({
             setCopilotEnabled={setCopilotEnabled}
           />
           <button
-            disabled={message.trim().length === 0 || loading}
-            className="bg-[#24A0ED] text-white disabled:text-black/50 dark:disabled:text-white/50 hover:bg-opacity-85 transition duration-100 disabled:bg-[#e0e0dc79] dark:disabled:bg-[#ececec21] rounded-full p-2"
+            disabled={message.trim().length < 3 || loading}
+            className="bg-emerald-500/70 dark:bg-emerald-300/50 text-white disabled:text-black/50 dark:disabled:text-white/50 hover:bg-opacity-85 transition duration-100 disabled:bg-[#e0e0dc79] dark:disabled:bg-[#ececec21] rounded-full p-2"
           >
             <ArrowUp className="bg-background" size={17} />
           </button>
@@ -113,20 +109,14 @@ const MessageInput = ({
       )}
       {mode === 'multi' && (
         <div className="flex flex-row items-center justify-between w-full pt-2">
-          <AttachSmall
-            fileIds={fileIds}
-            setFileIds={setFileIds}
-            files={files}
-            setFiles={setFiles}
-          />
           <div className="flex flex-row items-center space-x-4">
             <CopilotToggle
               copilotEnabled={copilotEnabled}
               setCopilotEnabled={setCopilotEnabled}
             />
             <button
-              disabled={message.trim().length === 0 || loading}
-              className="bg-[#24A0ED] text-white text-black/50 dark:disabled:text-white/50 hover:bg-opacity-85 transition duration-100 disabled:bg-[#e0e0dc79] dark:disabled:bg-[#ececec21] rounded-full p-2"
+              disabled={message.trim().length < 3 || loading}
+              className="bg-emerald-500/70 dark:bg-emerald-300/50 text-white text-black/50 dark:disabled:text-white/50 hover:bg-opacity-85 transition duration-100 disabled:bg-[#e0e0dc79] dark:disabled:bg-[#ececec21] rounded-full p-2"
             >
               <ArrowUp className="bg-background" size={17} />
             </button>

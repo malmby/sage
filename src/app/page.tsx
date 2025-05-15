@@ -3,7 +3,7 @@ import { Metadata } from 'next';
 import { Suspense } from 'react';
 
 export const metadata: Metadata = {
-  title: 'Chat - Sage',
+  title: 'Sage - AI-powered web search',
   description: 'Chat with the Internet, chat with Perplexica.',
 };
 

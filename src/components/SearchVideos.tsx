@@ -94,7 +94,7 @@ const Searchvideos = ({
             <VideoIcon size={17} />
             <p>Search videos</p>
           </div>
-          <PlusIcon className="text-[#24A0ED]" size={17} />
+          <PlusIcon className="text-emerald-500/70 dark:text-emerald-300/50" size={17} />
         </button>
       )}
       {loading && (

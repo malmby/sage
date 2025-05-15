@@ -52,7 +52,7 @@ const Sidebar = ({ children }: { children: React.ReactNode }) => {
               >
                 <link.icon />
                 {link.active && (
-                  <div className="absolute right-0 -mr-2 h-full w-1 rounded-l-lg bg-black dark:bg-white" />
+                  <div className="absolute right-0 -mr-2 h-full w-1 rounded-l-lg bg-emerald-500/70 dark:bg-emerald-300/50" />
                 )}
               </Link>
             ))}
