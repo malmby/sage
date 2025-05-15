@@ -1,7 +1,7 @@
 'use client';
 
 import { cn } from '@/lib/utils';
-import { BookOpenText, Home, Search, SquarePen, Settings } from 'lucide-react';
+import { Home, Compass, MessageCircleMore } from 'lucide-react';
 import Link from 'next/link';
 import { useSelectedLayoutSegments } from 'next/navigation';
 import React, { useState, type ReactNode } from 'react';
@@ -24,25 +24,19 @@ const Sidebar = ({ children }: { children: React.ReactNode }) => {
       label: 'Home',
     },
     {
-      icon: Search,
+      icon: Compass,
       href: '/discover',
       active: segments.includes('discover'),
       label: 'Discover',
-    },
-    {
-      icon: BookOpenText,
-      href: '/library',
-      active: segments.includes('library'),
-      label: 'Library',
     },
   ];
 
   return (
     <div>
       <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-20 lg:flex-col">
-        <div className="flex grow flex-col items-center justify-between gap-y-5 overflow-y-auto bg-light-secondary dark:bg-dark-secondary px-2 py-8">
+        <div className="flex grow flex-col items-center justify-between gap-y-5 overflow-y-auto bg-light-secondary dark:bg-dark-secondary text-black/70 dark:text-white/70 px-2 py-8">
           <a href="/">
-            <SquarePen className="cursor-pointer" />
+            <MessageCircleMore className="cursor-pointer" />
           </a>
           <VerticalIconContainer>
             {navLinks.map((link, i) => (
@@ -63,10 +57,6 @@ const Sidebar = ({ children }: { children: React.ReactNode }) => {
               </Link>
             ))}
           </VerticalIconContainer>
-
-          <Link href="/settings">
-            <Settings className="cursor-pointer" />
-          </Link>
         </div>
       </div>
 

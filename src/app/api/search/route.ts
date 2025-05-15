@@ -27,7 +27,7 @@ interface embeddingModel {
 }
 
 interface ChatRequestBody {
-  optimizationMode: 'speed' | 'balanced';
+  optimizationMode: 'speed' | 'quality';
   focusMode: string;
   chatModel?: chatModel;
   embeddingModel?: embeddingModel;
@@ -49,7 +49,7 @@ export const POST = async (req: Request) => {
     }
 
     body.history = body.history || [];
-    body.optimizationMode = body.optimizationMode || 'balanced';
+    body.optimizationMode = body.optimizationMode || 'quality';
     body.stream = body.stream || false;
 
     const history: BaseMessage[] = body.history.map((msg) => {
