@@ -16,7 +16,7 @@ const montserrat = Montserrat({
 export const metadata: Metadata = {
   title: 'Sage - AI-powered web search',
   description:
-    'Perplexica is an AI powered chatbot that is connected to the Internet.',
+    'Sage is an AI powered chatbot that is connected to the Internet, powered by Perplexica.',
 };
 
 export default function RootLayout({

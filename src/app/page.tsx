@@ -4,7 +4,7 @@ import { Suspense } from 'react';
 
 export const metadata: Metadata = {
   title: 'Sage - AI-powered web search',
-  description: 'Chat with the Internet, chat with Perplexica.',
+  description: 'Chat with the Internet, chat with Sage, powered by Perplexica.',
 };
 
 const Home = () => {
