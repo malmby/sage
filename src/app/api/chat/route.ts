@@ -204,24 +204,26 @@ export const POST = async (req: Request) => {
       chatModelProviders[
         body.chatModel?.provider || Object.keys(chatModelProviders)[0]
       ];
-	const preferredChatModel = 
-		(body.optimizationMode === 'speed' && 'gemma3:4b-it-qat' in chatModelProvider)
-		? 'gemma3:4b-it-qat'
-		: (body.optimizationMode === 'quality' && 'qwen3:30b-a3b-q8_0' in chatModelProvider)
-		? 'qwen3:30b-a3b-q8_0'
-		: body.chatModel?.name || Object.keys(chatModelProvider)[0];
-    const chatModel =
-      chatModelProvider[preferredChatModel];
-    const embeddingProvider =
-      embeddingModelProviders[
-        body.embeddingModel?.provider || Object.keys(embeddingModelProviders)[0]
-      ];
-	const preferredEmbeddingModel = 
-		('gemma3:4b-it-qat' in embeddingProvider)
-		? 'gemma3:4b-it-qat'
-		: ('llama3.2:3b' in embeddingProvider)
-		? 'llama3.2:3b'
-		: body.embeddingModel?.name || Object.keys(embeddingProvider)[0];
+    const preferredChatModel = 
+      (body.optimizationMode === 'speed' && 'gemma3:4b-it-qat' in chatModelProvider)
+      ? 'gemma3:4b-it-qat'
+      : (body.optimizationMode === 'quality' && 'qwen3:30b-a3b-q8_0' in chatModelProvider)
+      ? 'qwen3:30b-a3b-q8_0'
+      : body.chatModel?.name || Object.keys(chatModelProvider)[0];
+      const chatModel =
+        chatModelProvider[preferredChatModel];
+      const embeddingProvider =
+        embeddingModelProviders[
+          body.embeddingModel?.provider || Object.keys(embeddingModelProviders)[0]
+        ];
+    const preferredEmbeddingModel = 
+      ('snowflake-arctic-embed2:568m' in embeddingProvider)
+      ? 'snowflake-arctic-embed2:568m'
+      : ('snowflake-arctic-embed:335m' in embeddingProvider)
+      ? 'snowflake-arctic-embed:335m'
+      : ('nomic-embed-text:v1.5' in embeddingProvider)
+      ? 'nomic-embed-text:v1.5'
+      : body.embeddingModel?.name || Object.keys(embeddingProvider)[0];
     const embeddingModel =
       embeddingProvider[preferredEmbeddingModel];
 
