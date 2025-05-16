@@ -3,6 +3,7 @@ import { Message } from './ChatWindow';
 import { useEffect, useState } from 'react';
 import { formatTimeDifference } from '@/lib/utils';
 import DeleteChat from './DeleteChat';
+import ShareChat from './ShareChat';
 
 const Navbar = ({
   chatId,
@@ -59,6 +60,7 @@ const Navbar = ({
       <p className="hidden lg:flex">{title}</p>
 
       <div className="flex flex-row items-center space-x-4">
+	      <ShareChat chatId={chatId} />
         <DeleteChat redirect chatId={chatId} chats={[]} setChats={() => {}} />
       </div>
     </div>
