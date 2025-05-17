@@ -60,7 +60,7 @@ const Navbar = ({
       <p className="hidden lg:flex">{title}</p>
 
       <div className="flex flex-row items-center space-x-4">
-	      <ShareChat chatId={chatId} />
+        <ShareChat chatId={chatId} />
         <DeleteChat redirect chatId={chatId} chats={[]} setChats={() => {}} />
       </div>
     </div>
