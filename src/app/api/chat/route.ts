@@ -200,10 +200,17 @@ export const POST = async (req: Request) => {
       getAvailableEmbeddingModelProviders(),
     ]);
 
-    const chatModelProvider =
-      chatModelProviders[
-        body.chatModel?.provider || Object.keys(chatModelProviders)[0]
-      ];
+    const preferredProviderOrder = ['ollama', 'lm_studio', 'custom_openai'];
+
+    const sortedProviders = preferredProviderOrder
+      .map((provider) => ({ provider, models: chatModelProviders[provider] }))
+      .filter(({ provider, models }) => provider !== 'openai' && models);
+
+    const selectedProviderEntry = sortedProviders.find(({ models }) => models && Object.keys(models).length > 0);
+
+    const chatModelProvider = selectedProviderEntry?.models || {};
+    const selectedProviderName = selectedProviderEntry?.provider;
+
     const preferredChatModel = 
       (body.optimizationMode === 'speed' && 'gemma3:4b-it-qat' in chatModelProvider)
       ? 'gemma3:4b-it-qat'
@@ -230,11 +237,10 @@ export const POST = async (req: Request) => {
     let llm: BaseChatModel | undefined;
     let embedding = embeddingModel.model;
 
-    if (body.chatModel?.provider === 'custom_openai') {
+    if (selectedProviderName === 'custom_openai') {
       llm = new ChatOpenAI({
         openAIApiKey: getCustomOpenaiApiKey(),
         modelName: getCustomOpenaiModelName(),
-        temperature: 0.7,
         configuration: {
           baseURL: getCustomOpenaiApiUrl(),
         },

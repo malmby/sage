@@ -17,6 +17,17 @@ interface Config {
     KEEP_ALIVE: string;
   };
   MODELS: {
+    OLLAMA: {
+      API_URL: string;
+    };
+    LM_STUDIO: {
+      API_URL: string;
+    };
+    CUSTOM_OPENAI: {
+      API_URL: string;
+      API_KEY: string;
+      MODEL_NAME: string;
+    };
     OPENAI: {
       API_KEY: string;
     };
@@ -29,19 +40,8 @@ interface Config {
     GEMINI: {
       API_KEY: string;
     };
-    OLLAMA: {
-      API_URL: string;
-    };
     DEEPSEEK: {
       API_KEY: string;
-    };
-    LM_STUDIO: {
-      API_URL: string;
-    };
-    CUSTOM_OPENAI: {
-      API_URL: string;
-      API_KEY: string;
-      MODEL_NAME: string;
     };
   };
   API_ENDPOINTS: {
