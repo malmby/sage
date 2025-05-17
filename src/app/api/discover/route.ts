@@ -1,10 +1,11 @@
 import { searchSearxng } from '@/lib/searxng';
 
 const articleWebsites = [
-  'yahoo.com',
+  'www.reuters.com',
   'www.exchangewire.com',
   'businessinsider.com',
-  /* 'wired.com',
+  /*'yahoo.com',
+  'wired.com',
   'mashable.com',
   'theverge.com',
   'gizmodo.com',
@@ -12,7 +13,7 @@ const articleWebsites = [
   'venturebeat.com', */
 ];
 
-const topics = ['AI', 'tech']; /* TODO: Add UI to customize this */
+const topics = ['Business', 'Markets', 'Tech', 'AI']; /* TODO: Add UI to customize this */
 
 export const GET = async (req: Request) => {
   try {
