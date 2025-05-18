@@ -11,41 +11,25 @@ if (typeof window === 'undefined') {
 
 const configFileName = 'config.toml';
 
+interface ModelEntry {
+  model_name: string;
+  provider: string;
+  api_url: string;
+  api_key?: string;
+  }
+
 interface Config {
   GENERAL: {
     SIMILARITY_MEASURE: string;
     KEEP_ALIVE: string;
   };
-  MODELS: {
-    OLLAMA: {
-      API_URL: string;
-    };
-    LM_STUDIO: {
-      API_URL: string;
-    };
-    CUSTOM_OPENAI: {
-      API_URL: string;
-      API_KEY: string;
-      MODEL_NAME: string;
-    };
-    OPENAI: {
-      API_KEY: string;
-    };
-    GROQ: {
-      API_KEY: string;
-    };
-    ANTHROPIC: {
-      API_KEY: string;
-    };
-    GEMINI: {
-      API_KEY: string;
-    };
-    DEEPSEEK: {
-      API_KEY: string;
-    };
-  };
   API_ENDPOINTS: {
     SEARXNG: string;
+  };
+  MODELS: {
+    SPEED?: ModelEntry[];
+    QUALITY?: ModelEntry[];
+    EMBEDDING?: ModelEntry[];
   };
 }
 
@@ -65,37 +49,14 @@ const loadConfig = () => {
   return {} as Config;
 };
 
-export const getSimilarityMeasure = () =>
-  loadConfig().GENERAL.SIMILARITY_MEASURE;
-
+export const getSimilarityMeasure = () => loadConfig().GENERAL.SIMILARITY_MEASURE;
 export const getKeepAlive = () => loadConfig().GENERAL.KEEP_ALIVE;
 
-export const getOpenaiApiKey = () => loadConfig().MODELS.OPENAI.API_KEY;
+export const getSearxngApiEndpoint = () => process.env.SEARXNG_API_URL || loadConfig().API_ENDPOINTS.SEARXNG;
 
-export const getGroqApiKey = () => loadConfig().MODELS.GROQ.API_KEY;
-
-export const getAnthropicApiKey = () => loadConfig().MODELS.ANTHROPIC.API_KEY;
-
-export const getGeminiApiKey = () => loadConfig().MODELS.GEMINI.API_KEY;
-
-export const getSearxngApiEndpoint = () =>
-  process.env.SEARXNG_API_URL || loadConfig().API_ENDPOINTS.SEARXNG;
-
-export const getOllamaApiEndpoint = () => loadConfig().MODELS.OLLAMA.API_URL;
-
-export const getDeepseekApiKey = () => loadConfig().MODELS.DEEPSEEK.API_KEY;
-
-export const getCustomOpenaiApiKey = () =>
-  loadConfig().MODELS.CUSTOM_OPENAI.API_KEY;
-
-export const getCustomOpenaiApiUrl = () =>
-  loadConfig().MODELS.CUSTOM_OPENAI.API_URL;
-
-export const getCustomOpenaiModelName = () =>
-  loadConfig().MODELS.CUSTOM_OPENAI.MODEL_NAME;
-
-export const getLMStudioApiEndpoint = () =>
-  loadConfig().MODELS.LM_STUDIO.API_URL;
+export const getSpeedModels: ModelEntry[] = parsedConfig.MODELS.SPEED ?? [];
+export const getQualityModels: ModelEntry[] = parsedConfig.MODELS.QUALITY ?? [];
+export const getEmbeddingModels: ModelEntry[] = parsedConfig.MODELS.EMBEDDING ?? [];
 
 const mergeConfigs = (current: any, update: any): any => {
   if (update === null || update === undefined) {
