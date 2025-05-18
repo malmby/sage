@@ -74,6 +74,39 @@ const checkConfig = async (
       return res.json();
     });
 
+    const preferredChatModels = [
+      'gemma3:4b-it-qat',
+      'qwen3:30b-a3b-q8_0',
+    ];
+    const preferredEmbeddingModels = [
+      'snowflake-arctic-embed2:568m',
+      'snowflake-arctic-embed:335m',
+      'nomic-embed-text:v1.5',
+    ];
+    
+    function selectPreferredModel(
+      modelProviders: Record<string, Record<string, any>>,
+      preferredModels: string[],
+    ): { provider: string; model: string } | null {
+      for (const model of preferredModels) {
+        for (const provider of Object.keys(modelProviders)) {
+          if (modelProviders[provider]?.[model]) {
+            return { provider, model };
+          }
+        }
+      }
+    
+      const fallbackProvider = Object.keys(modelProviders).find(
+        (provider) => Object.keys(modelProviders[provider]).length > 0,
+      );
+      if (fallbackProvider) {
+        const fallbackModel = Object.keys(modelProviders[fallbackProvider])[0];
+        return { provider: fallbackProvider, model: fallbackModel };
+      }
+    
+      return null;
+    }
+    
     if (
       !chatModel ||
       !chatModelProvider ||
@@ -82,82 +115,84 @@ const checkConfig = async (
     ) {
       if (!chatModel || !chatModelProvider) {
         const chatModelProviders = providers.chatModelProviders;
-
-        chatModelProvider =
-          chatModelProvider || Object.keys(chatModelProviders)[0];
-
-        chatModel = Object.keys(chatModelProviders[chatModelProvider])[0];
-
-        if (!chatModelProviders || Object.keys(chatModelProviders).length === 0)
+      
+        if (!chatModelProviders || Object.keys(chatModelProviders).length === 0) {
           return toast.error('No chat models available');
+        }
+      
+        const selected = selectPreferredModel(chatModelProviders, preferredChatModels);
+        if (!selected) return toast.error('No valid chat model found');
+      
+        chatModelProvider = selected.provider;
+        chatModel = selected.model;
       }
-
+    
       if (!embeddingModel || !embeddingModelProvider) {
         const embeddingModelProviders = providers.embeddingModelProviders;
-
-        if (
-          !embeddingModelProviders ||
-          Object.keys(embeddingModelProviders).length === 0
-        )
+      
+        if (!embeddingModelProviders || Object.keys(embeddingModelProviders).length === 0) {
           return toast.error('No embedding models available');
-
-        embeddingModelProvider = Object.keys(embeddingModelProviders)[0];
-        embeddingModel = Object.keys(
-          embeddingModelProviders[embeddingModelProvider],
-        )[0];
+        }
+      
+        const selected = selectPreferredModel(embeddingModelProviders, preferredEmbeddingModels);
+        if (!selected) {
+          return toast.error('No valid embedding model found');
+        }
+      
+        embeddingModelProvider = selected.provider;
+        embeddingModel = selected.model;
       }
-
-      localStorage.setItem('chatModel', chatModel!);
+    
+      localStorage.setItem('chatModel', chatModel);
       localStorage.setItem('chatModelProvider', chatModelProvider);
-      localStorage.setItem('embeddingModel', embeddingModel!);
+      localStorage.setItem('embeddingModel', embeddingModel);
       localStorage.setItem('embeddingModelProvider', embeddingModelProvider);
     } else {
       const chatModelProviders = providers.chatModelProviders;
       const embeddingModelProviders = providers.embeddingModelProviders;
-
+    
       if (
-        Object.keys(chatModelProviders).length > 0 &&
-        !chatModelProviders[chatModelProvider]
+      Object.keys(chatModelProviders).length > 0 &&
+      !chatModelProviders[chatModelProvider]
       ) {
-        const chatModelProvidersKeys = Object.keys(chatModelProviders);
-        chatModelProvider =
-          chatModelProvidersKeys.find(
-            (key) => Object.keys(chatModelProviders[key]).length > 0,
-          ) || chatModelProvidersKeys[0];
-
-        localStorage.setItem('chatModelProvider', chatModelProvider);
+        const selected = selectPreferredModel(chatModelProviders, preferredChatModels);
+        if (selected) {
+          chatModelProvider = selected.provider;
+          chatModel = selected.model;
+          localStorage.setItem('chatModelProvider', chatModelProvider);
+          localStorage.setItem('chatModel', chatModel);
+        }
+      } else if (!chatModelProviders[chatModelProvider]?.[chatModel]) {
+        const selected = selectPreferredModel(chatModelProviders, preferredChatModels);
+        if (selected) {
+          chatModel = selected.model;
+          chatModelProvider = selected.provider;
+          localStorage.setItem('chatModel', chatModel);
+          localStorage.setItem('chatModelProvider', chatModelProvider);
+        }
       }
-
+    
       if (
-        chatModelProvider &&
-        !chatModelProviders[chatModelProvider][chatModel]
+      Object.keys(embeddingModelProviders).length > 0 &&
+      !embeddingModelProviders[embeddingModelProvider]
       ) {
-        chatModel = Object.keys(
-          chatModelProviders[
-            Object.keys(chatModelProviders[chatModelProvider]).length > 0
-              ? chatModelProvider
-              : Object.keys(chatModelProviders)[0]
-          ],
-        )[0];
-        localStorage.setItem('chatModel', chatModel);
-      }
-
-      if (
-        Object.keys(embeddingModelProviders).length > 0 &&
-        !embeddingModelProviders[embeddingModelProvider]
+        const selected = selectPreferredModel(embeddingModelProviders, preferredEmbeddingModels);
+        if (selected) {
+          embeddingModelProvider = selected.provider;
+          embeddingModel = selected.model;
+          localStorage.setItem('embeddingModelProvider', embeddingModelProvider);
+          localStorage.setItem('embeddingModel', embeddingModel);
+        }
+      } else if (
+        !embeddingModelProviders[embeddingModelProvider]?.[embeddingModel]
       ) {
-        embeddingModelProvider = Object.keys(embeddingModelProviders)[0];
-        localStorage.setItem('embeddingModelProvider', embeddingModelProvider);
-      }
-
-      if (
-        embeddingModelProvider &&
-        !embeddingModelProviders[embeddingModelProvider][embeddingModel]
-      ) {
-        embeddingModel = Object.keys(
-          embeddingModelProviders[embeddingModelProvider],
-        )[0];
-        localStorage.setItem('embeddingModel', embeddingModel);
+        const selected = selectPreferredModel(embeddingModelProviders, preferredEmbeddingModels);
+        if (selected) {
+          embeddingModel = selected.model;
+          embeddingModelProvider = selected.provider;
+          localStorage.setItem('embeddingModel', embeddingModel);
+          localStorage.setItem('embeddingModelProvider', embeddingModelProvider);
+        }
       }
     }
 
