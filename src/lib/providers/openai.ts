@@ -10,7 +10,7 @@ import { BaseChatModel } from '@langchain/core/language_models/chat_models';
 import { Embeddings } from '@langchain/core/embeddings';
 
 const openaiChatModels: Record<string, string>[] = [
-  {
+/*  {
     displayName: 'GPT-3.5 Turbo',
     key: 'gpt-3.5-turbo',
   },
@@ -41,18 +41,18 @@ const openaiChatModels: Record<string, string>[] = [
   {
     displayName: 'GPT 4.1',
     key: 'gpt-4.1',
-  },
+  },*/
 ];
 
 const openaiEmbeddingModels: Record<string, string>[] = [
-  {
+/*  {
     displayName: 'Text Embedding 3 Small',
     key: 'text-embedding-3-small',
   },
   {
     displayName: 'Text Embedding 3 Large',
     key: 'text-embedding-3-large',
-  },
+  },*/
 ];
 
 export const loadOpenAIChatModels = async () => {
