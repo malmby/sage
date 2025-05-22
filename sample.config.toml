@@ -1,32 +1,54 @@
 [GENERAL]
 SIMILARITY_MEASURE = "cosine" # "cosine" or "dot"
-KEEP_ALIVE = "5m" # How long to keep Ollama models loaded into memory. (Instead of using -1 use "-1m")
-
-[MODELS.OPENAI]
-API_KEY = ""
-
-[MODELS.GROQ]
-API_KEY = ""
-
-[MODELS.ANTHROPIC]
-API_KEY = ""
-
-[MODELS.GEMINI]
-API_KEY = ""
-
-[MODELS.CUSTOM_OPENAI]
-API_KEY = ""
-API_URL = ""
-MODEL_NAME = ""
-
-[MODELS.OLLAMA]
-API_URL = "" # Ollama API URL - http://host.docker.internal:11434
-
-[MODELS.DEEPSEEK]
-API_KEY = ""
-
-[MODELS.LM_STUDIO]
-API_URL = "" # LM Studio API URL - http://host.docker.internal:1234
+KEEP_ALIVE = "-1m" # How long to keep Ollama models loaded into memory. (Instead of using -1 use "-1m")
 
 [API_ENDPOINTS]
 SEARXNG = "" # SearxNG API URL - http://localhost:32768
+
+
+# Model priority for 'Speed' searches.
+[[MODELS.SPEED]]
+model_name = "gemma3:4b-it-qat"
+provider = "ollama"
+api_url = "https://..."
+api_key = ""
+
+[[MODELS.SPEED]]
+model_name = "llama3.2:3b"
+provider = "ollama"
+api_url = "https://..."
+api_key = ""
+
+
+# Model priority for 'Quality' searches.
+[[MODELS.QUALITY]]
+model_name = "qwen3:30b-a3b-q8_0"
+provider = "ollama"
+api_url = "https://..."
+api_key = ""
+
+[[MODELS.QUALITY]]
+model_name = "deepseek-r1:32b"
+provider = "ollama"
+api_url = "https://..."
+api_key = ""
+
+
+# Model priority for embedding.
+[[MODELS.EMBEDDING]]
+model_name = "snowflake-arctic-embed2:568m"
+provider = "ollama"
+api_url = "https://..."
+api_key = ""
+
+[[MODELS.EMBEDDING]]
+model_name = "snowflake-arctic-embed:335mm"
+provider = "ollama"
+api_url = "https://..."
+api_key = ""
+
+[[MODELS.EMBEDDING]]
+model_name = "nomic-embed-text:v1.5"
+provider = "ollama"
+api_url = "https://..."
+api_key = ""
