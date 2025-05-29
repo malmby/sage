@@ -58,6 +58,10 @@ export const getSpeedModels: ModelEntry[] = parsedConfig.MODELS.SPEED ?? [];
 export const getQualityModels: ModelEntry[] = parsedConfig.MODELS.QUALITY ?? [];
 export const getEmbeddingModels: ModelEntry[] = parsedConfig.MODELS.EMBEDDING ?? [];
 
+      console.log(getSpeedModels);
+      console.log(getQualityModels);
+      console.log(getEmbeddingModels);
+
 const mergeConfigs = (current: any, update: any): any => {
   if (update === null || update === undefined) {
     return current;

@@ -9,13 +9,13 @@ SEARXNG = "" # SearxNG API URL - http://localhost:32768
 # Model priority for 'Speed' searches.
 [[MODELS.SPEED]]
 model_name = "gemma3:4b-it-qat"
-provider = "ollama"
+provider = "LM_STUDIO"
 api_url = "https://..."
 api_key = ""
 
 [[MODELS.SPEED]]
 model_name = "llama3.2:3b"
-provider = "ollama"
+provider = "OLLAMA"
 api_url = "https://..."
 api_key = ""
 
@@ -23,13 +23,13 @@ api_key = ""
 # Model priority for 'Quality' searches.
 [[MODELS.QUALITY]]
 model_name = "qwen3:30b-a3b-q8_0"
-provider = "ollama"
+provider = "OLLAMA"
 api_url = "https://..."
 api_key = ""
 
 [[MODELS.QUALITY]]
 model_name = "deepseek-r1:32b"
-provider = "ollama"
+provider = "OLLAMA"
 api_url = "https://..."
 api_key = ""
 
@@ -37,18 +37,18 @@ api_key = ""
 # Model priority for embedding.
 [[MODELS.EMBEDDING]]
 model_name = "snowflake-arctic-embed2:568m"
-provider = "ollama"
+provider = "OLLAMA"
 api_url = "https://..."
 api_key = ""
 
 [[MODELS.EMBEDDING]]
 model_name = "snowflake-arctic-embed:335mm"
-provider = "ollama"
+provider = "OLLAMA"
 api_url = "https://..."
 api_key = ""
 
 [[MODELS.EMBEDDING]]
 model_name = "nomic-embed-text:v1.5"
-provider = "ollama"
+provider = "OLLAMA"
 api_url = "https://..."
 api_key = ""
