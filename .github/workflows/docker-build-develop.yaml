@@ -1,4 +1,4 @@
-name: Build & Push Docker Images
+name: "Build & Push Docker Images: Develop"
 
 on:
   push:
