@@ -16,7 +16,7 @@ interface ModelEntry {
   provider: string;
   api_url: string;
   api_key?: string;
-  }
+}
 
 interface Config {
   GENERAL: {
@@ -54,9 +54,9 @@ export const getKeepAlive = () => loadConfig().GENERAL.KEEP_ALIVE;
 
 export const getSearxngApiEndpoint = () => process.env.SEARXNG_API_URL || loadConfig().API_ENDPOINTS.SEARXNG;
 
-export const getSpeedModels: ModelEntry[] = parsedConfig.MODELS.SPEED ?? [];
-export const getQualityModels: ModelEntry[] = parsedConfig.MODELS.QUALITY ?? [];
-export const getEmbeddingModels: ModelEntry[] = parsedConfig.MODELS.EMBEDDING ?? [];
+export const getSpeedModels: ModelEntry[] = loadConfig().MODELS.SPEED ?? [];
+export const getQualityModels: ModelEntry[] = loadConfig().MODELS.QUALITY ?? [];
+export const getEmbeddingModels: ModelEntry[] = loadConfig().MODELS.EMBEDDING ?? [];
 
       console.log(getSpeedModels);
       console.log(getQualityModels);
