@@ -17,6 +17,11 @@ export const metadata: Metadata = {
   title: 'Sage - AI-powered web search',
   description:
     'Sage is an AI powered chatbot that is connected to the Internet, powered by Perplexica.',
+  other: {
+    'application-name': 'Sage',
+    'msapplication-tooltip': 'AI-powered web search',
+    'search': '/opensearch.xml',
+  }
 };
 
 export default function RootLayout({
