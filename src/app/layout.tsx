@@ -5,6 +5,7 @@ import { cn } from '@/lib/utils';
 import Sidebar from '@/components/Sidebar';
 import { Toaster } from 'sonner';
 import ThemeProvider from '@/components/theme/Provider';
+import HeadTags from '@/components/HeadTags';
 
 const montserrat = Montserrat({
   weight: ['300', '400', '500', '700'],
@@ -17,11 +18,6 @@ export const metadata: Metadata = {
   title: 'Sage - AI-powered web search',
   description:
     'Sage is an AI powered chatbot that is connected to the Internet, powered by Perplexica.',
-  other: {
-    'application-name': 'Sage',
-    'msapplication-tooltip': 'AI-powered web search',
-    'search': '/opensearch.xml',
-  }
 };
 
 export default function RootLayout({
@@ -32,6 +28,7 @@ export default function RootLayout({
   return (
     <html className="h-full" lang="en" suppressHydrationWarning>
       <body className={cn('h-full', montserrat.className)}>
+        <HeadTags />
         <ThemeProvider>
           <Sidebar>{children}</Sidebar>
           <Toaster
