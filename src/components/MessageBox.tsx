@@ -52,9 +52,9 @@ const MessageBox = ({
     const regex = /\[(\d+)\]/g;
     let processedMessage = message.content;
 
-    if (message.role === 'assistant' && message.content.includes('<think>')) {
-      const openThinkTag = processedMessage.match(/<think>/g)?.length || 0;
-      const closeThinkTag = processedMessage.match(/<\/think>/g)?.length || 0;
+    if (message.role === 'assistant' && /<(think|details[^>]*)>/g.test(message.content)) {
+      const openThinkTag = processedMessage.match(/<(think|details[^>]*)>/g)?.length || 0;
+      const closeThinkTag = processedMessage.match(/<\/(think|details)>/g)?.length || 0;
 
       if (openThinkTag > closeThinkTag) {
         processedMessage += '</think> <a> </a>'; // The extra <a> </a> is to prevent the the think component from looking bad
