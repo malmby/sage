@@ -76,7 +76,7 @@ const checkConfig = async (
 
     const preferredChatModels = [
       'gemma3:4b-it-qat',
-      'qwen3:30b-a3b-q8_0',
+      'gpt-oss:20b',
     ];
     const preferredEmbeddingModels = [
       'snowflake-arctic-embed2:568m',
