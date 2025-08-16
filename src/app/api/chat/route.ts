@@ -214,8 +214,8 @@ export const POST = async (req: Request) => {
     const preferredChatModel = 
       (body.optimizationMode === 'speed' && 'gemma3:4b-it-qat' in chatModelProvider)
       ? 'gemma3:4b-it-qat'
-      : (body.optimizationMode === 'quality' && 'qwen3:30b-a3b-q8_0' in chatModelProvider)
-      ? 'qwen3:30b-a3b-q8_0'
+      : (body.optimizationMode === 'quality' && 'gpt-oss:20b' in chatModelProvider)
+      ? 'gpt-oss:20b'
       : body.chatModel?.name || Object.keys(chatModelProvider)[0];
       const chatModel =
         chatModelProvider[preferredChatModel];
