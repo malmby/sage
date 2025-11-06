@@ -75,7 +75,7 @@ const checkConfig = async (
     });
 
     const preferredChatModels = [
-      'gemma3:4b-it-qat',
+      'llama3.2:3b',
       'gpt-oss:20b',
     ];
     const preferredEmbeddingModels = [
